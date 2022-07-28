@@ -11,7 +11,7 @@ import SwiftUI
 struct MTApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+           WorkoutView()
         }
     }
 }
