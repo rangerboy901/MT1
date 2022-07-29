@@ -16,7 +16,7 @@ struct SizeKey: PreferenceKey {
 
 struct ButtonCircle: ViewModifier {
     let isPressed: Bool
-
+    
     func body(content: Content) -> some View {
         let background = Circle()
             .fill()
@@ -31,7 +31,7 @@ struct ButtonCircle: ViewModifier {
                     .foregroundColor(.white)
                     .padding(4)
             )
-            
+        
         let foreground = content
             .fixedSize()
             .padding(15)
@@ -149,31 +149,24 @@ extension CGPoint {
 struct Labels: View {
     var body: some View {
         GeometryReader { proxy in
-        ZStack{
-            ForEach(0..<12) { idx in
-                Text("\(idx ==  0  ? 60 :  idx  * 5)")
-                    .offset(CGPoint(angle: Angle.degrees(360 * Double(idx)/12-90),
-                                    distance:  proxy.size.width).size)
+            ZStack{
+                ForEach(0..<12) { idx in
+                    Text("\(idx ==  0  ? 60 :  idx  * 5)")
+                        .offset(CGPoint(angle: Angle.degrees(360 * Double(idx)/12-92),
+                                        distance:  proxy.size.width).size)
+                }
             }
         }
     }
 }
-}
-struct Placemat: View{
-    var body: some View {
-        Rectangle()
-            .foregroundColor(Color.gray)
-            .frame(width: 350, height: 350, alignment: .center)
-    }
-}
 struct Ticks: View {
     func tick(at tick: Int) -> some View {
-            VStack {
-                Rectangle()
-                    .fill(Color.primary)
-                    .opacity(tick % 20 == 0 ? 1 : 0.4)
-                    .frame(width: 2, height: tick % 4 == 0 ? 15 : 7)
-                Spacer()
+        VStack {
+            Rectangle()
+                .fill(Color.primary)
+                .opacity(tick % 20 == 0 ? 1 : 0.4)
+                .frame(width: 2, height: tick % 4 == 0 ? 15 : 7)
+            Spacer()
         }.rotationEffect(Angle.degrees(Double(tick)/240 * 360))
     }
     var body: some View {
@@ -188,32 +181,33 @@ struct Clock: View {
     var time: TimeInterval = 10
     var lapTime: TimeInterval?
     
- //TODO:  Add a placemat under the clock - mucgh like the clock widget on homescreen
+    //TODO:  Add a placemat under the clock - mucgh like the clock widget on homescreen
     var body: some View {
         ZStack {
             Ticks()
             Labels()
-             .offset(x: 50, y: 50)
-             .padding(90)
-             .font(.subheadline)
+                .offset(x:50, y: 50)
+                .padding(90)
+                .font(.subheadline)
             Text(time.formatted)
-                .font(Font.system(size: 24,  weight:   .regular).monospacedDigit())
+                .foregroundColor(.accentColor)
+                .font(Font.system(size: 30,  weight:   .regular).monospacedDigit())
                 .offset(y: 70)
             
             if lapTime != nil {
                 Pointer()
-                    .stroke(Color.blue, lineWidth: 2)
+                    .stroke(Color.green, lineWidth: 2)
                     .rotationEffect(Angle.degrees(Double(lapTime!) * 360/60))
             }
             Pointer()
-                .stroke(Color.orange, lineWidth: 2)
+                .stroke(Color.red, lineWidth: 2)
                 .rotationEffect(Angle.degrees(Double(time) * 360/60))
             Color.clear
         }.aspectRatio(1, contentMode: .fit)
-        // .padding(50)
+        
     }
 }
- 
+
 
 
 
@@ -221,7 +215,7 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView()
             .background(Color.white)
-          
+        
     }
 }
 
@@ -229,64 +223,78 @@ struct  WorkoutView: View {
     @ObservedObject var stopwatch = Stopwatch()
     
     var body: some View {
-           VStack {
-                Clock(time: stopwatch.total, lapTime: stopwatch.laps.last?.0).frame(width: 300, height: 300, alignment: .center)
-            }
-//            Text(stopwatch.total.formatted)
-//                .font(Font.system(size: 64, weight: .thin).monospacedDigit())
-            HStack {
-                ZStack {
-                    //Buttons...
-                    Button(action: { self.stopwatch.lap() }) {
-                        Text("Next")
-                    }
-                    .foregroundColor(.gray)
-                    .visible(stopwatch.isRunning)
-                    Button(action: { self.stopwatch.reset() }) {
-                        Text("Reset")
-                    }
-                    .foregroundColor(.gray)
-                    .visible(!stopwatch.isRunning)
-                }
-             Spacer()
-                ZStack {
-                    Button(action: { self.stopwatch.stop() }) {
-                        Text("Stop")
-                    }
-                    .foregroundColor(.red)
-                    .visible(stopwatch.isRunning)
-                    Button(action: { self.stopwatch.start() }) {
-                        Text("Start")
-                    }
-                    .foregroundColor(.green)
-                    .visible(!stopwatch.isRunning)
-                }
-            }
-            .padding(.horizontal)
-            .equalSizes()
-//            .padding()
-            .buttonStyle(CircleStyle())
-//            Spacer()
-            List {
-                ForEach(stopwatch.laps.enumerated().reversed(), id: \.offset) { value in
-                    HStack {
-                        Text("ExerciseName \(value.offset + 1)")
-                        Spacer()
-                        Text(value.element.0.formatted)
-                            .font(Font.body.monospacedDigit())
-                    }.foregroundColor(value.element.1.color)
-                }
-            }.padding(20)
+        VStack {
+            Clock(time: stopwatch.total, lapTime: stopwatch.laps.last?.0).frame(width: 300, height: 300, alignment: .center)
         }
-      
+        //            Text(stopwatch.total.formatted)
+        //                .font(Font.system(size: 64, weight: .thin).monospacedDigit())
+        HStack {
+            ZStack {
+                Spacer()
+                //JWD:  STOP / START BUTTON
+                Button(action: { self.stopwatch.stop() }) {
+                    Text("Stop")
+                }
+                .foregroundColor(.red)
+                .visible(stopwatch.isRunning)
+                Button(action: { self.stopwatch.start() }) {
+                    Text("Start")
+                }
+                .foregroundColor(.green)
+                .visible(!stopwatch.isRunning)
+            }
+            Spacer()
+            ZStack {
+                //JWD:  NEXT / RESET BUTTON
+                Button(action: { self.stopwatch.lap() }) {
+                    Text("Next")
+                }
+                .foregroundColor(.gray)
+                .visible(stopwatch.isRunning)
+                Button(action: { self.stopwatch.reset() }) {
+                    Text("Reset")
+                }
+                .foregroundColor(.gray)
+                .visible(!stopwatch.isRunning)
+            }
+            Spacer()
+            ZStack {
+                
+                //JWD:  FINISH BUTTON
+                Button(action: { self.stopwatch.stop() }) {
+                    Text("Finish")
+                }
+                .foregroundColor(.init( UIColor.systemBlue))
+                Spacer()
+            }
+        }
+        .padding(.horizontal)
+        .equalSizes()
+        .padding()
+        .buttonStyle(CircleStyle())
+        Spacer()
+        List {
+            ForEach(stopwatch.laps.enumerated().reversed(), id: \.offset) { value in
+                HStack {
+                    
+                    Text("⭕️ ExerciseName \(value.offset + 1)")
+                    Spacer()
+                    Text(value.element.0.formatted)
+                        .font(Font.body.monospacedDigit())
+                }.foregroundColor(value.element.1.color)
+                    .background()
+            }
+        }
     }
+    
+}
 
 
 extension LapType {
     var color: Color {
         switch self {
         case .regular:
-            return .black
+            return .primary
         case .shortest:
             return .green
         case .longest:
@@ -315,7 +323,7 @@ final class Stopwatch: ObservableObject {
         })
         data.start(at: Date().timeIntervalSinceReferenceDate)
     }
-    
+    //TODO: Add "Finish" button function
     func stop() {
         timer?.invalidate()
         timer = nil
@@ -341,7 +349,7 @@ enum LapType {
     case shortest
     case longest
 }
-
+//JWD:  *STOPWATCH VARIABLES*
 struct StopwatchData {
     var absoluteStartTime: TimeInterval?
     var currentTime: TimeInterval = 0
