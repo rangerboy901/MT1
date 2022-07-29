@@ -19,6 +19,8 @@
 		4A1B7196289234E800BC103B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A1B716B289234E800BC103B /* Assets.xcassets */; };
 		4A1B71A7289235C100BC103B /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1B71A6289235C100BC103B /* WorkoutView.swift */; };
 		4A1B71A8289235C100BC103B /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1B71A6289235C100BC103B /* WorkoutView.swift */; };
+		4AC8B0FA289468C700C1D71E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8B0F9289468C700C1D71E /* Theme.swift */; };
+		4AC8B0FC28946C9100C1D71E /* DailyWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8B0FB28946C9100C1D71E /* DailyWorkout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		4A1B718D289234E800BC103B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		4A1B718F289234E800BC103B /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		4A1B71A6289235C100BC103B /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		4AC8B0F9289468C700C1D71E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		4AC8B0FB28946C9100C1D71E /* DailyWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 		4A1B7168289234E700BC103B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4AC8B0F82894689700C1D71E /* Models */,
 				4A1B71A5289235A900BC103B /* Views */,
 				4A1B7169289234E700BC103B /* MTApp.swift */,
 				4A1B716B289234E800BC103B /* Assets.xcassets */,
@@ -151,6 +156,15 @@
 				4A1B71A6289235C100BC103B /* WorkoutView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4AC8B0F82894689700C1D71E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4AC8B0F9289468C700C1D71E /* Theme.swift */,
+				4AC8B0FB28946C9100C1D71E /* DailyWorkout.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,8 +326,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A1B7193289234E800BC103B /* ContentView.swift in Sources */,
+				4AC8B0FA289468C700C1D71E /* Theme.swift in Sources */,
 				4A1B71A7289235C100BC103B /* WorkoutView.swift in Sources */,
 				4A1B7191289234E800BC103B /* MTApp.swift in Sources */,
+				4AC8B0FC28946C9100C1D71E /* DailyWorkout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

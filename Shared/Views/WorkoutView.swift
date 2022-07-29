@@ -2,7 +2,7 @@
 //  WorkoutView.swift
 //  MT
 //
-//  Created by Joseph Wil;liam DeWeese on 7/27/22.
+//  Created by Joseph William DeWeese on 7/27/22.
 //
 
 import SwiftUI
@@ -13,7 +13,6 @@ struct SizeKey: PreferenceKey {
         value.append(contentsOf: nextValue())
     }
 }
-
 struct ButtonCircle: ViewModifier {
     let isPressed: Bool
     
@@ -31,7 +30,6 @@ struct ButtonCircle: ViewModifier {
                     .foregroundColor(.white)
                     .padding(4)
             )
-        
         let foreground = content
             .fixedSize()
             .padding(15)
@@ -41,18 +39,15 @@ struct ButtonCircle: ViewModifier {
             .background(background)
     }
 }
-
 struct SizeEnvironmentKey: EnvironmentKey {
     static let defaultValue: CGSize? = nil
 }
-
 extension EnvironmentValues {
     var size: CGSize? {
         get { self[SizeEnvironmentKey.self] }
         set { self[SizeEnvironmentKey.self] = newValue }
     }
 }
-
 fileprivate struct EqualSize: ViewModifier {
     @Environment(\.size) private var size
     
@@ -63,7 +58,6 @@ fileprivate struct EqualSize: ViewModifier {
         .frame(width: size?.width, height: size?.width)
     }
 }
-
 fileprivate struct EqualSizes: ViewModifier {
     @State var width: CGFloat?
     func body(content: Content) -> some View {
