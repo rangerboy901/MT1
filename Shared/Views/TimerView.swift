@@ -1,5 +1,5 @@
 //
-//  WorkoutView.swift
+//  TimerView.swift
 //  MT
 //
 //  Created by Joseph William DeWeese on 7/27/22.
@@ -207,13 +207,13 @@ struct Clock: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutView()
+        TimerView()
             .background(Color.white)
         
     }
 }
 
-struct  WorkoutView: View {
+struct  TimerView: View {
     @ObservedObject var stopwatch = Stopwatch()
     
     var body: some View {

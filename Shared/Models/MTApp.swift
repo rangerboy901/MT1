@@ -11,7 +11,9 @@ import SwiftUI
 struct MTApp: App {
     var body: some Scene {
         WindowGroup {
-           WorkoutView()
+            NavigationView {
+                WorkoutsView(workouts: DailyWorkout.sampleData)
+            }
         }
     }
 }
